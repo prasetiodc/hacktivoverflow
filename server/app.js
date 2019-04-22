@@ -15,7 +15,8 @@ app.use(cors())
 app.use('/', route)
 
 app.listen(port, ()=>{
-    console.log(`Listen on ${port}`);
+
+    console.log(`Listen on port ${port}`);
 })
 
 module.exports = app

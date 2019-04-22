@@ -6,7 +6,8 @@ let questionSchema = new Schema({
     description: String,
     upvotes: Number,
     downvotes: Number,
-    answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }]
+    answers: [{ type: Schema.Types.ObjectId, ref: 'Answer' }],
+    userId: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
 let Question = mongoose.model('Question',questionSchema)

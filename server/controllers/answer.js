@@ -4,6 +4,7 @@ const Question = require('../models/question')
 class Answer{
     static findAll(req, res){
         Model.find()
+        .populate('userId')
         .then(data=>{
             res.status(200).json(data)
         })
@@ -38,6 +39,7 @@ class Answer{
 
     static findOne(req, res){
         Model.findById(req.params.id)
+        .populate('userId')
         .then(data=>{
             res.status(200).json(data)
         })

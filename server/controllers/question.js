@@ -3,7 +3,13 @@ const Model = require('../models/question')
 class Question{
     static findAll(req, res){
         Model.find()
-        .populate('answers')
+        .populate('userId')
+        .populate({ 
+            path: 'answers',
+            populate: {
+                path: 'userId'
+                } 
+            })
         .then(data=>{
             res.status(200).json(data)
         })
@@ -13,15 +19,20 @@ class Question{
     }
 
     static create(req, res){
+        console.log("MASUK CREATE QUESTION");
+        
         let newQuestion = new Model({
             title: req.body.title,
             description: req.body.description,
             upvotes: 0,
             downvotes: 0,
-            answers: []
+            answers: [],
+            userId: req.userId
         })
         Model.create(newQuestion)
         .then(data=>{
+            console.log("SUKSES");
+            
             res.status(201).json(data)
         })
         .catch(err=>{
@@ -31,6 +42,8 @@ class Question{
 
     static findOne(req, res){
         Model.findById(req.params.id)
+        .populate('answers')
+        .populate('userId')
         .then(data=>{
             res.status(200).json(data)
         })
