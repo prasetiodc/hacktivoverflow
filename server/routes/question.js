@@ -4,6 +4,7 @@ const {authentication} = require('../middleware/auth')
 
 router.get('/', question.findAll)
 router.get('/:id', question.findOne)
+router.get('/:id/user', authentication, question.findMine)
 router.post('/', authentication, question.create)
 router.delete('/:id', question.delete)
 router.put('/:id', question.update)

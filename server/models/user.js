@@ -22,6 +22,11 @@ userSchema.path('email').validate(function(value){
     })
 })
 
+userSchema.pre('save', function(done){
+    this.password = hash(this.password)
+    done()
+})
+
 let User = mongoose.model('User',userSchema)
 
 module.exports = User

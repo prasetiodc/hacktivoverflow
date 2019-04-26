@@ -11,6 +11,8 @@
 
         <b-form-group label="Description :" label-for="description">
           <b-form-input id="description" required placeholder="Description" v-model="description"></b-form-input>
+
+          <!-- <wysiwyg id="description" v-model="description"></wysiwyg> -->
         </b-form-group>
 
         <div>
@@ -23,7 +25,8 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
+// import wysiwyg from "@/assets/js/vueWysiwyg.js"
 
 export default {
   data() {
@@ -33,28 +36,28 @@ export default {
     };
   },
   methods: {
-    add(){
-      let newData ={
-        title : this.title,
-        description : this.description
-      }
-      axios.post('http://localhost:3000/questions/', newData,
-      {
-        headers: {
-          token : localStorage.token
-        }
-      })
-      .then(data => {
-        swal("Add Question Success", "", "success");
-        this.title = ''
-        this.description = ''
-      })
-      .catch(err =>{
-        console.log(err);
-        
-      })
-    }
-  }
+    add() {
+      const newData = {
+        title: this.title,
+        description: this.description,
+      };
+      axios
+        .post('http://localhost:3000/questions/', newData, {
+          headers: {
+            token: localStorage.token,
+          },
+        })
+        .then((data) => {
+          swal('Add Question Success', '', 'success');
+          this.title = '';
+          this.description = '';
+          this.$router.push('/myQuestion');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+  },
 };
 </script>
 

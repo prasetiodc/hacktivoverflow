@@ -4,6 +4,9 @@ import Home from './views/Home.vue';
 import Signin from './views/Signin.vue';
 import Signup from './views/Signup.vue';
 import addQuestion from './views/addQuestion.vue';
+import myQuestion from './views/myQuestion.vue';
+import Detail from './components/Detail.vue';
+import Question from './components/Question.vue'
 
 Vue.use(Router);
 
@@ -28,12 +31,20 @@ export default new Router({
       name: 'addQuestion',
       component: addQuestion,
     }, {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
-    },
+      path: '/myQuestion',
+      name: 'myQuestion',
+      component: myQuestion,
+      children: [
+        {
+          path: ':id',
+          name: 'detail',
+          component: Detail,
+        },
+      ],
+    }, {
+      path: '/question/:id',
+      name: 'question',
+      component: Question,
+    }, 
   ],
 });

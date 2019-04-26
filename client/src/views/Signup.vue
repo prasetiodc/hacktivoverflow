@@ -49,7 +49,6 @@ export default {
         .then(({ data }) => {
           this.$router.push('/signin');
           // swal("Thanks to join Us!", "Register Success", "success");
-
         })
         .catch(({ err }) => {
           console.log(err);

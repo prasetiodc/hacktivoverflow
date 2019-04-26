@@ -11,10 +11,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     islogin: '',
+    userIdLogin: '',
   },
   mutations: {
     setLogin(state, payload) {
       state.islogin = payload;
+    },
+    setUser(state, payload) {
+      state.userIdLogin = payload;
     },
   },
   actions: {

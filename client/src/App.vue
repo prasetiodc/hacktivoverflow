@@ -7,17 +7,13 @@
         <b-navbar-toggle target='nav-collapse'></b-navbar-toggle>
         <b-collapse id='nav-collapse' is-nav>
           <b-navbar-nav>
-            <router-link to='/addQuestion' v-if='this.$store.state.islogin'>Add Question</router-link>
+            <router-link to='/addQuestion' v-if='this.$store.state.islogin'>Add Question</router-link> |
+            <router-link to='/myQuestion' v-if='this.$store.state.islogin'>My Question</router-link>
           </b-navbar-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class='ml-auto'>
             <b-navbar-nav right v-if='!this.$store.state.islogin'>
               <router-link to='/signin'>Signin</router-link>
-            </b-navbar-nav>
-            <b-navbar-nav right v-if='this.$store.state.islogin && !this.$store.state.isAdmin'>
-              <router-link to='/carts'>
-                <i class='fas fa-shopping-cart'></i>
-              </router-link>
             </b-navbar-nav>
             <b-navbar-nav right v-if='this.$store.state.islogin'>
               <a href='' @click.prevent='signout'>Sign Out</a>
@@ -35,7 +31,9 @@ export default {
   methods: {
     signout() {
       this.$store.commit('setLogin', false);
+      this.$store.commit('setUser', '');
       localStorage.removeItem('token');
+      localStorage.removeItem('userId');
       // swal('Logout Success!', '', 'success');
       this.$router.push('/signin');
     },

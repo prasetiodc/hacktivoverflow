@@ -47,7 +47,6 @@ export default {
   },
   methods: {
     signin() {
-      
       const user = {
         email: this.email,
         password: this.password,
@@ -56,9 +55,11 @@ export default {
         .then(({ data }) => {
           this.email = '',
           this.password = '',
-          
+
           localStorage.setItem('token', data.token);
+          localStorage.setItem('userId', data.id);
           this.$store.commit('setLogin', true);
+          this.$store.commit('setUser', data.id);
           if (data.role) {
             this.$store.commit('setAdmin', true);
           }
@@ -68,7 +69,7 @@ export default {
         .catch(({ err }) => {
           console.log(err);
         });
-    },
+    }
   },
 };
 </script>

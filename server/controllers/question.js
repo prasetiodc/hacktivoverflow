@@ -18,9 +18,26 @@ class Question{
         })
     }
 
+    static findMine(req, res){
+        Model.find({userId:{_id :req.userId}})
+        // .populate('userId')
+        // .populate({ 
+        //     path: 'answers',
+        //     populate: {
+        //         path: 'userId'
+        //         } 
+        //     })
+        .then(data=>{
+            console.log(">>>>>>>>>>>>>",data);
+            
+            res.status(200).json(data)
+        })
+        .catch(err=>{
+            res.status(500).json(err)
+        })
+    }
+
     static create(req, res){
-        console.log("MASUK CREATE QUESTION");
-        
         let newQuestion = new Model({
             title: req.body.title,
             description: req.body.description,
@@ -31,8 +48,6 @@ class Question{
         })
         Model.create(newQuestion)
         .then(data=>{
-            console.log("SUKSES");
-            
             res.status(201).json(data)
         })
         .catch(err=>{

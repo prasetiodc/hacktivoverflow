@@ -14,22 +14,19 @@ class Answer{
     }
 
     static create(req, res){
-        let newQuestion = new Model({
+        let newAnswer = new Model({
             title: req.body.title,
             description: req.body.description,
             upvotes: 0,
             downvotes: 0,
             questionId: req.body.questionId,
+            userId: req.userId,
         })
-        Model.create(newQuestion)
+        Model.create(newAnswer)
         .then(data=>{
-            console.log(data);
-            
             return Question.findOneAndUpdate({_id:req.body.questionId}, { $push: { answers: data._id } }, {new : true})
         })
         .then(data=>{
-            console.log(data);
-            
             res.status(201).json(data)
         })
         .catch(err=>{
